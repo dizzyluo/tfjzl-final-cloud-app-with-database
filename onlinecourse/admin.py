@@ -32,9 +32,9 @@ class LessonAdmin(admin.ModelAdmin):
 
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [ChoiceInline]
-    list_display = ['question_text', 'course', 'grade']
+    list_display = ['content', 'course', 'grade']
     list_filter = ['course']
-    search_fields = ['question_text']
+    search_fields = ['content']
 
 
 # <HINT> Register Question and Choice models here
