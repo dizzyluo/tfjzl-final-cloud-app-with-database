@@ -51,6 +51,37 @@
                 {% endfor %}
             </div>
             <!-- Course detail template changes go here -->
+            {% if user.is_authenticated %}
+            <br>
+            <!-- Button to start the exam -->
+            <button class="btn btn-primary btn-block" data-toggle="collapse" data-target="#exam">Start Exam</button>
+            <!-- Collapsable exam div -->
+            <div id="exam" class="collapse">
+                <!-- Question logic inside a form -->
+                <form id="questionform" action="{% url 'onlinecourse:submit' course.id %}" method="post">
+                    {% csrf_token %}
+                    {% for question in course.question_set.all %}
+                    <!-- Question UI -->
+                    <div class="card mt-1">
+                        <div class="card-header"><h5>{{ question.question_text }}</h5></div>
+                        <!-- Choices components -->
+                        <div class="form-group">
+                            {% for choice in question.choice_set.all %}
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="checkbox" name="choice_{{ choice.id }}"
+                                           class="form-check-input" id="{{ choice.id }}"
+                                           value="{{ choice.id }}">{{ choice.choice_text }}
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <input class="btn btn-success btn-block" type="submit" value="Submit">
+                </form>
+            </div>
+            {% endif %}
     </div>
 </body>
 </html>
