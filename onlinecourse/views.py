@@ -122,7 +122,7 @@ def submit(request, course_id):
     choices = Choice.objects.filter(id__in=selected_ids, question__course=course)
     submission.choices.set(choices)
     submission_id = submission.id
-    return HttpResponseRedirect(reverse(viewname='onlinecourse:exam_result', args=(course_id, submission_id,)))
+    return HttpResponseRedirect(reverse(viewname='onlinecourse:show_exam_result', args=(course_id, submission_id,)))
 
 
 # An example method to collect the selected choices from the exam form from the request object
